@@ -1,0 +1,49 @@
+.sensor-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 0;
+  list-style: none;
+  max-width: 100%;
+}
+
+.sensor-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  height: 150px;
+  width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+
+  &:hover {
+    transform: translateY(-3px);
+  }
+}
+
+.sensor-card img {
+  height: 50px;
+  max-height: 50px;
+  margin-bottom: 8px;
+}
+
+.sensor-details {
+  font-weight: 500;
+  text-align: center;
+}
+
+.sensor-status {
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.last-report {
+  font-size: 14px;
+  color: #666;
+  margin-top: 4px;
+  cursor: pointer;
+}

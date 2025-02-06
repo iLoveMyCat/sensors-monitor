@@ -1,4 +1,18 @@
+.form-component {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+}
 .sensor-form {
   display: flex;
   flex-direction: column;
+  width: 333px;
+  max-width: 96vw;
+  gap: 16px;
+}
+
+mat-form-field {
+  width: 100%;
+  max-width: 400px;
 }

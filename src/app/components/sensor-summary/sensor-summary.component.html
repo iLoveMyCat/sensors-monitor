@@ -1,5 +1,17 @@
-<p>
-  סך הכל {{ (sensors$ | async)?.length }} התקנים:
-  {{ (sensorsCount$ | async)?.working }} תקינים,
-  {{ (sensorsCount$ | async)?.notWorking }} לא תיקינים
-</p>
+<mat-card class="sensor-summary-card">
+  <mat-card-title>תקציר חיישנים</mat-card-title>
+  <mat-card-content>
+    <p>
+      סך הכל:
+      <span>{{ (sensors$ | async)?.length }}</span> התקנים
+    </p>
+    <p>
+      <mat-icon color="primary">check_circle</mat-icon>
+      תקינים: <span>{{ (sensorsCount$ | async)?.working }}</span>
+    </p>
+    <p>
+      <mat-icon color="warn">error</mat-icon>
+      לא תקינים: <span>{{ (sensorsCount$ | async)?.notWorking }}</span>
+    </p>
+  </mat-card-content>
+</mat-card>

@@ -1,47 +1,64 @@
-<a [routerLink]="'/'">חזרה</a>
-<h2>הוסף חיישן חדש</h2>
+<a [routerLink]="'/'" mat-button>חזרה</a>
+<div class="form-component">
+  <h2>הוסף חיישן חדש</h2>
 
-<form class="sensor-form" (ngSubmit)="onSubmit()" #sensorForm="ngForm">
-  <label>
-    שם החיישן:
-    <input
-      type="text"
-      [(ngModel)]="newSensor.WebSiteDeviceName"
-      name="name"
-      required
-    />
-  </label>
+  <form class="sensor-form" (ngSubmit)="onSubmit()" #sensorForm="ngForm">
+    <mat-form-field appearance="fill">
+      <mat-label>שם החיישן</mat-label>
+      <input
+        matInput
+        type="text"
+        [(ngModel)]="newSensor.WebSiteDeviceName"
+        name="name"
+        required
+      />
+    </mat-form-field>
 
-  <label>
-    סוג החיישן:
-    <select [(ngModel)]="newSensor.DeviceType" name="deviceType" required>
-      <option [ngValue]="DeviceType.MotionHanxi">גלאי תנועה Hanxi</option>
-      <option [ngValue]="DeviceType.MotionPhilio">גלאי תנועה Philio</option>
-      <option [ngValue]="DeviceType.Contact">גלאי דלת/חלון</option>
-      <option [ngValue]="DeviceType.Water">גלאי הצפה</option>
-      <option [ngValue]="DeviceType.Boiler">בקר דוד</option>
-      <option [ngValue]="DeviceType.ZwaveLight">בקר תאורה</option>
-      <option [ngValue]="DeviceType.Camera">מצלמה</option>
-    </select>
-  </label>
+    <mat-form-field appearance="fill">
+      <mat-label>סוג החיישן</mat-label>
+      <mat-select [(ngModel)]="newSensor.DeviceType" name="deviceType" required>
+        <mat-option [value]="DeviceType.MotionHanxi"
+          >גלאי תנועה Hanxi</mat-option
+        >
+        <mat-option [value]="DeviceType.MotionPhilio"
+          >גלאי תנועה Philio</mat-option
+        >
+        <mat-option [value]="DeviceType.Contact">גלאי דלת/חלון</mat-option>
+        <mat-option [value]="DeviceType.Water">גלאי הצפה</mat-option>
+        <mat-option [value]="DeviceType.Boiler">בקר דוד</mat-option>
+        <mat-option [value]="DeviceType.ZwaveLight">בקר תאורה</mat-option>
+        <mat-option [value]="DeviceType.Camera">מצלמה</mat-option>
+      </mat-select>
+    </mat-form-field>
 
-  <label>
-    תקינות החיישן:
-    <select [(ngModel)]="newSensor.DeviceOK" name="deviceOK" required>
-      <option [value]="1">תקין</option>
-      <option [value]="0">לא תקין</option>
-    </select>
-  </label>
+    <mat-form-field appearance="fill">
+      <mat-label>תקינות החיישן</mat-label>
+      <mat-select [(ngModel)]="newSensor.DeviceOK" name="deviceOK" required>
+        <mat-option [value]="1">תקין</mat-option>
+        <mat-option [value]="0">לא תקין</mat-option>
+      </mat-select>
+    </mat-form-field>
 
-  <label>
-    תאריך התקנה:
-    <input
-      type="date"
-      [(ngModel)]="newSensor.InstallDate"
-      name="installDate"
-      required
-    />
-  </label>
+    <mat-form-field appearance="fill">
+      <mat-label>תאריך התקנה</mat-label>
+      <input
+        matInput
+        [matDatepicker]="picker"
+        [(ngModel)]="newSensor.InstallDate"
+        name="installDate"
+        required
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
 
-  <button type="submit" [disabled]="sensorForm.invalid">הוסף חיישן</button>
-</form>
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [disabled]="sensorForm.invalid"
+    >
+      הוסף חיישן
+    </button>
+  </form>
+</div>

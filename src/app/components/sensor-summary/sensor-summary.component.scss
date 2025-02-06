@@ -1,0 +1,15 @@
+.sensor-summary-card {
+  max-width: 400px;
+  padding: 10px;
+}
+
+p {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 5px 0;
+}
+
+mat-icon {
+  font-size: 20px;
+}

@@ -1,3 +1,13 @@
-<app-sensor-summary></app-sensor-summary>
-<a [routerLink]="'/add-sensor'">הוסף חיישן</a>
-<app-sensor-list></app-sensor-list>
+<mat-card class="dashboard-card">
+  <mat-card-content>
+    <mat-card-title>מערכת ניהול חיישנים</mat-card-title>
+
+    <div class="add-sensor-button">
+      <button mat-raised-button color="primary" [routerLink]="'/add-sensor'">
+        הוסף חיישן
+      </button>
+    </div>
+    <app-sensor-summary></app-sensor-summary>
+    <app-sensor-list></app-sensor-list>
+  </mat-card-content>
+</mat-card>
