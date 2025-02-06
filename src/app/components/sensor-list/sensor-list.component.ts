@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { SensorsService } from '../../services/sensors.service';
 import { Observable } from 'rxjs';
 import { Sensor } from '../../interfaces/Sensor';
@@ -9,7 +9,7 @@ import { Sensor } from '../../interfaces/Sensor';
   styleUrl: './sensor-list.component.scss',
 })
 export class SensorListComponent {
-  sensors$: Observable<Sensor[]> = this.sensorsService.sensors$;
+  @Input() filteredSensors: Sensor[] = [];
 
   toggleSensorState(deviceId: string) {
     this.sensorsService.toggleSensorState(deviceId);

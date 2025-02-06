@@ -3,8 +3,27 @@
   padding: 20px;
 }
 
+.filter-section {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+.filters {
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+}
+
+.filter-input {
+  flex: 1;
+  margin: 3px;
+  min-width: 242px;
+}
 .add-sensor-button {
   margin: 15px 0;
   display: flex;
   justify-content: flex-start;
+}
+.mat-mdc-card-title {
+  text-align: center;
 }

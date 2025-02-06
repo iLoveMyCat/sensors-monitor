@@ -1,5 +1,5 @@
 <ul class="sensor-list">
-  <li *ngFor="let sensor of sensors$ | async" class="sensor-card">
+  <li *ngFor="let sensor of filteredSensors" class="sensor-card">
     <img src="/assets/sensors/{{ sensor.Picture }}.png" alt="Sensor Image" />
     <div class="sensor-details">
       {{ sensor.DeviceTypeHebrew }} - {{ sensor.WebSiteDeviceName }}
@@ -7,7 +7,7 @@
     <span class="sensor-status" (click)="toggleSensorState(sensor.DeviceId)">
       {{ sensor.DeviceOK == 1 ? "🟢" : "🔴" }}
     </span>
-    <span class="last-report" (click)="toggleSensorState(sensor.DeviceId)">
+    <span class="last-report">
       תאריך עדכון אחרון:
       {{ sensor.LastReportDate | date : "dd/MM/yyyy HH:mm:ss" }}
     </span>

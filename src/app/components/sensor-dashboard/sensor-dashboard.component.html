@@ -2,12 +2,65 @@
   <mat-card-content>
     <mat-card-title>מערכת ניהול חיישנים</mat-card-title>
 
+    <app-sensor-summary></app-sensor-summary>
     <div class="add-sensor-button">
       <button mat-raised-button color="primary" [routerLink]="'/add-sensor'">
         הוסף חיישן
       </button>
     </div>
-    <app-sensor-summary></app-sensor-summary>
-    <app-sensor-list></app-sensor-list>
+    <div class="filter-section">
+      <div class="filters">
+        <mat-form-field appearance="fill" class="filter-input">
+          <mat-label>סנן לפי שם חיישן</mat-label>
+          <input
+            matInput
+            [(ngModel)]="filter.name"
+            (ngModelChange)="applyFilters()"
+          />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="filter-input">
+          <mat-label>תאריך התחלה</mat-label>
+          <input
+            matInput
+            [matDatepicker]="startPicker"
+            [(ngModel)]="filter.startDate"
+            (ngModelChange)="applyFilters()"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="startPicker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #startPicker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="filter-input">
+          <mat-label>תאריך סיום</mat-label>
+          <input
+            matInput
+            [matDatepicker]="endPicker"
+            [(ngModel)]="filter.endDate"
+            (ngModelChange)="applyFilters()"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="endPicker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #endPicker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="filter-buttons">
+        <button mat-stroked-button color="warn" (click)="clearFilters()">
+          נקה סינונים
+        </button>
+      </div>
+    </div>
+    <ng-container *ngIf="filteredSensors$ | async as sensors; else loading">
+      <app-sensor-list [filteredSensors]="sensors"></app-sensor-list>
+    </ng-container>
+
+    <ng-template #loading>
+      <p>טוען נתונים...</p>
+    </ng-template>
   </mat-card-content>
 </mat-card>

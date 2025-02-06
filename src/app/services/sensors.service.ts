@@ -12,6 +12,9 @@ export class SensorsService {
   private sensorsState = new BehaviorSubject<Sensor[]>([]);
   sensors$ = this.sensorsState.asObservable();
 
+  private filteredSensorsState = new BehaviorSubject<Sensor[]>([]);
+  filteredSensors$ = this.filteredSensorsState.asObservable();
+
   private sensorCountState = new BehaviorSubject<{
     working: number;
     notWorking: number;
@@ -26,7 +29,10 @@ export class SensorsService {
       .pipe(
         tap((data) => {
           this.updateSensorState(data);
-          console.log('sensors fetched:', data);
+          console.log('Sensors fetched:', data);
+        }),
+        tap(() => {
+          this.filterSensors({ name: '', startDate: null, endDate: null });
         })
       )
       .subscribe();
@@ -49,6 +55,45 @@ export class SensorsService {
   addSensor(newSensor: Sensor): void {
     const updatedSensors = [...this.sensorsState.value, newSensor];
     this.updateSensorState(updatedSensors);
+  }
+
+  filterSensors(filter: {
+    name: string;
+    startDate: Date | null;
+    endDate: Date | null;
+  }) {
+    const sensors = this.sensorsState.getValue();
+
+    if (!filter.name && !filter.startDate && !filter.endDate) {
+      this.filteredSensorsState.next(sensors);
+      return;
+    }
+
+    const filtered = sensors.filter((sensor) => {
+      const matchesName =
+        !filter.name || sensor.WebSiteDeviceName.includes(filter.name);
+      const matchesDateRange = this.isWithinDateRange(
+        sensor.LastReportDate,
+        filter.startDate,
+        filter.endDate
+      );
+      return matchesName && matchesDateRange;
+    });
+
+    this.filteredSensorsState.next(filtered);
+  }
+
+  private isWithinDateRange(
+    dateString: string | null,
+    startDate: Date | null,
+    endDate: Date | null
+  ): boolean {
+    if (!dateString) return true;
+    const date = new Date(dateString);
+    return (
+      (!startDate || date >= new Date(startDate)) &&
+      (!endDate || date <= new Date(endDate))
+    );
   }
 
   //centralized update state
