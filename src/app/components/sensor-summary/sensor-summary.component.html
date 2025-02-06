@@ -1,0 +1,5 @@
+<p>
+  סך הכל {{ (sensors$ | async)?.length }} התקנים:
+  {{ (sensorsCount$ | async)?.working }} תקינים,
+  {{ (sensorsCount$ | async)?.notWorking }} לא תיקינים
+</p>

@@ -1,0 +1,36 @@
+<ul
+  style="
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px;
+    max-width: 100%;
+    padding: 0;
+    list-style: none;
+  "
+>
+  <li
+    *ngFor="let sensor of sensors$ | async"
+    style="
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 10px;
+      height: 130px;
+      width: 300px;
+      border: 1px solid;
+    "
+  >
+    <img
+      style="min-height: 33%; max-height: 33%"
+      src="/assets/sensors/{{ sensor.Picture }}.png"
+    />
+    {{ sensor.WebSiteDeviceName }}
+    <span style="cursor: pointer" (click)="toggleSensorState(sensor.DeviceId)">
+      {{ sensor.DeviceOK == 1 ? "🟢" : "🔴" }}
+    </span>
+    <span (click)="toggleSensorState(sensor.DeviceId)">
+      תאריך עדכון אחרון: {{ sensor.LastReportDate }}
+    </span>
+  </li>
+</ul>

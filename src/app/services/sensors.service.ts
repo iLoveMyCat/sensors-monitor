@@ -7,21 +7,25 @@ import { Sensor } from '../interfaces/Sensor';
   providedIn: 'root',
 })
 export class SensorsService {
-  private sensorsState = new BehaviorSubject<Sensor[]>([]);
   private sensorJsonPath = 'assets/sensors.json';
 
-  constructor(private http: HttpClient) {}
+  private sensorsState = new BehaviorSubject<Sensor[]>([]);
+  sensors$ = this.sensorsState.asObservable();
 
-  get sensors$(): Observable<Sensor[]> {
-    return this.sensorsState.asObservable();
-  }
+  private sensorCountState = new BehaviorSubject<{
+    working: number;
+    notWorking: number;
+  }>({ working: 0, notWorking: 0 });
+  sensorsCount$ = this.sensorCountState.asObservable();
+
+  constructor(private http: HttpClient) {}
 
   fetchSensors(): void {
     this.http
       .get<Sensor[]>(this.sensorJsonPath)
       .pipe(
         tap((data) => {
-          this.sensorsState.next(data);
+          this.updateSensorState(data);
           console.log('sensors fetched:', data);
         })
       )
@@ -38,6 +42,23 @@ export class SensorsService {
       return sensor;
     });
 
-    this.sensorsState.next(updatedSensors);
+    this.updateSensorState(updatedSensors);
+  }
+
+  //centralized update state
+  private updateSensorState(sensors: Sensor[]) {
+    this.sensorsState.next(sensors);
+    this.updateCounts(sensors);
+  }
+
+  private updateCounts(sensors: Sensor[]) {
+    const totalCount = sensors.length;
+    const workingSensors = sensors.filter((s) => s.DeviceOK == 1).length;
+    const notWorkingSensors = totalCount - workingSensors;
+
+    this.sensorCountState.next({
+      working: workingSensors,
+      notWorking: notWorkingSensors,
+    });
   }
 }
