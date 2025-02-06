@@ -15,11 +15,16 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.sensorsService.sensors$.subscribe((data) => {
       this.sensors = data;
-      console.log('sensors initialized:', this.sensors);
     });
 
     this.sensorsService.fetchSensors();
   }
 
-  title = 'sensors-monitor';
+  toggleSensorState(deviceId: string) {
+    this.sensorsService.toggleSensorState(deviceId);
+  }
+
+  addSeonsor() {
+    alert('to add new sensor');
+  }
 }

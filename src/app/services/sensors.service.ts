@@ -19,7 +19,25 @@ export class SensorsService {
   fetchSensors(): void {
     this.http
       .get<Sensor[]>(this.sensorJsonPath)
-      .pipe(tap((data) => this.sensorsState.next(data)))
+      .pipe(
+        tap((data) => {
+          this.sensorsState.next(data);
+          console.log('sensors fetched:', data);
+        })
+      )
       .subscribe();
+  }
+
+  toggleSensorState(deviceId: string) {
+    const currentSensors = this.sensorsState.getValue();
+
+    const updatedSensors = currentSensors.map((sensor: Sensor) => {
+      if (deviceId == sensor.DeviceId) {
+        sensor.DeviceOK = sensor.DeviceOK == 1 ? 0 : 1;
+      }
+      return sensor;
+    });
+
+    this.sensorsState.next(updatedSensors);
   }
 }
