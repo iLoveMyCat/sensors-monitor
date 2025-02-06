@@ -38,6 +38,7 @@ export class SensorsService {
     const updatedSensors = currentSensors.map((sensor: Sensor) => {
       if (deviceId == sensor.DeviceId) {
         sensor.DeviceOK = sensor.DeviceOK == 1 ? 0 : 1;
+        sensor.LastReportDate = new Date().toISOString();
       }
       return sensor;
     });
