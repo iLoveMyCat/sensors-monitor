@@ -25,13 +25,13 @@
       style="min-height: 33%; max-height: 33%"
       src="/assets/sensors/{{ sensor.Picture }}.png"
     />
-    {{ sensor.DeviceTypeHebrew }}
+    {{ sensor.DeviceTypeHebrew }} - {{ sensor.WebSiteDeviceName }}
     <span style="cursor: pointer" (click)="toggleSensorState(sensor.DeviceId)">
       {{ sensor.DeviceOK == 1 ? "🟢" : "🔴" }}
     </span>
     <span (click)="toggleSensorState(sensor.DeviceId)">
       תאריך עדכון אחרון:
-      {{ sensor.LastReportDate | date : "yyyy/MM/dd HH:mm:ss" }}
+      {{ sensor.LastReportDate | date : "dd/MM/yyyy HH:mm:ss" }}
     </span>
   </li>
 </ul>

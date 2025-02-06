@@ -46,6 +46,11 @@ export class SensorsService {
     this.updateSensorState(updatedSensors);
   }
 
+  addSensor(newSensor: Sensor): void {
+    const updatedSensors = [...this.sensorsState.value, newSensor];
+    this.updateSensorState(updatedSensors);
+  }
+
   //centralized update state
   private updateSensorState(sensors: Sensor[]) {
     this.sensorsState.next(sensors);

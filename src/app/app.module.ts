@@ -9,10 +9,18 @@ import { SensorListComponent } from './components/sensor-list/sensor-list.compon
 import { SensorItemComponent } from './components/sensor-item/sensor-item.component';
 import { SensorFormComponent } from './components/sensor-form/sensor-form.component';
 import { SensorDashboardComponent } from './components/sensor-dashboard/sensor-dashboard.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [AppComponent, SensorSummaryComponent, SensorListComponent, SensorItemComponent, SensorFormComponent, SensorDashboardComponent],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
+  declarations: [
+    AppComponent,
+    SensorSummaryComponent,
+    SensorListComponent,
+    SensorItemComponent,
+    SensorFormComponent,
+    SensorDashboardComponent,
+  ],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
   providers: [],
   bootstrap: [AppComponent],
 })

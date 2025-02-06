@@ -1,1 +1,47 @@
 <a [routerLink]="'/'">חזרה</a>
+<h2>הוסף חיישן חדש</h2>
+
+<form class="sensor-form" (ngSubmit)="onSubmit()" #sensorForm="ngForm">
+  <label>
+    שם החיישן:
+    <input
+      type="text"
+      [(ngModel)]="newSensor.WebSiteDeviceName"
+      name="name"
+      required
+    />
+  </label>
+
+  <label>
+    סוג החיישן:
+    <select [(ngModel)]="newSensor.DeviceType" name="deviceType" required>
+      <option [ngValue]="DeviceType.MotionHanxi">גלאי תנועה Hanxi</option>
+      <option [ngValue]="DeviceType.MotionPhilio">גלאי תנועה Philio</option>
+      <option [ngValue]="DeviceType.Contact">גלאי דלת/חלון</option>
+      <option [ngValue]="DeviceType.Water">גלאי הצפה</option>
+      <option [ngValue]="DeviceType.Boiler">בקר דוד</option>
+      <option [ngValue]="DeviceType.ZwaveLight">בקר תאורה</option>
+      <option [ngValue]="DeviceType.Camera">מצלמה</option>
+    </select>
+  </label>
+
+  <label>
+    תקינות החיישן:
+    <select [(ngModel)]="newSensor.DeviceOK" name="deviceOK" required>
+      <option [value]="1">תקין</option>
+      <option [value]="0">לא תקין</option>
+    </select>
+  </label>
+
+  <label>
+    תאריך התקנה:
+    <input
+      type="date"
+      [(ngModel)]="newSensor.InstallDate"
+      name="installDate"
+      required
+    />
+  </label>
+
+  <button type="submit" [disabled]="sensorForm.invalid">הוסף חיישן</button>
+</form>
